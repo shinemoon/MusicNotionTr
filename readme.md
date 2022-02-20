@@ -14,3 +14,5 @@ i.e.
 The main file will scan the txt and check possible range to increase/decrease the pitch (to not exceed normal 12-hole chromatic range)
 
 After you decide the shift, the exec will print out the updated ones
+
+Thanks
