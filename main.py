@@ -1,11 +1,64 @@
-# This is a sample Python script.
+# Suppose up/down limitation (1) & [7]
+def compTone(ta,tb):
+    import re
+    pattern = re.compile(r'(.*)(\d)(.*)')
+    # get dig
+    dta = int(pattern.match(ta).group(2))
+    dtb = int(pattern.match(tb).group(2))
+    if ta[0] != tb[0]:
+        if ta[0] == "[" or tb[0] == "(":
+            return True
+        elif ta[0] == "(" or tb[0] == "[":
+            return False
+        else:
+            if dta == dtb:
+                return len(ta) >= len(tb)
+            else:
+                return dta >= dtb
+    else:
+        if dta == dtb:
+            return len(ta) >= len(tb)
+        else:
+            return dta >= dtb
+    return dta >= dtb
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def fetchInput(fpath):
+    # 打开文件
+    toneArr = []
+    fo = open(fpath, "r+")
+    print("Read File: ", fo.name)
+    line = fo.read(-1)
+    # Break element into array
+    cnt = 0
+    for i in range(0, len(line)):
+        if i<cnt:
+            continue
+        curt = line[i]
+        pt = ""
+        # () []
+        if (curt == "(" or curt == "[") and line[i + 1] != "#":
+            pt = line[i :i + 3]
+            cnt=i+3
+        elif (curt == "(" or curt == "[") and line[i + 1] == "#":
+            pt = line[i :i + 4]
+            cnt=i+4
+        elif curt == "#":
+            pt = line[i :i + 2]
+            cnt=i+2
+        else:
+            pt = line[i]
+            cnt = i+1
+        ##
+        upL="(1)"
+        downL="[7]"
+        # TODO: to sort the order before insert
+        toneArr.append(pt)
+    print(toneArr)
+    # 关闭文件
+    fo.close()
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     # Load note file
-    print_hi('PyCharm')
+    fetchInput("input.txt")
