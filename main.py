@@ -30,6 +30,9 @@ def fetchInput(fpath):
     line = fo.read(-1)
     # Break element into array
     cnt = 0
+    ##
+    upL = "(1)"
+    downL = "[7]"
     for i in range(0, len(line)):
         if i<cnt:
             continue
@@ -48,12 +51,21 @@ def fetchInput(fpath):
         else:
             pt = line[i]
             cnt = i+1
-        ##
-        upL="(1)"
-        downL="[7]"
-        # TODO: to sort the order before insert
+        # Done: to sort the order before insert
+        try:
+            if compTone(pt,upL):
+                upL = pt
+            if compTone(downL, pt):
+                downL = pt
+        except:
+        # Do nothing
+            pass
         toneArr.append(pt)
     print(toneArr)
+    print("Highest Tone is: " + upL)
+    print("Lowest Tone is: " + downL)
+    # Todo: Analyze the space for adjustment based on up/down limitation
+
     # 关闭文件
     fo.close()
 
