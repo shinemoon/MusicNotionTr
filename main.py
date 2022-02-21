@@ -65,6 +65,7 @@ def fetchInput(fpath):
     print("Highest Tone is: " + upL)
     print("Lowest Tone is: " + downL)
     # Todo: Analyze the space for adjustment based on up/down limitation
+    # Todo: Provide Suggestion on adjustment further
 
     # 关闭文件
     fo.close()
