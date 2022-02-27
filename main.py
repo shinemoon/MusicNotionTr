@@ -74,7 +74,7 @@ def fetchInput(fpath):
     # 打开文件
     toneNArr = []
     toneArr = []
-    fo = open(fpath, "r+")
+    fo = open(fpath, "r+",encoding='UTF-8')
     print("Read File: ", fo.name)
     line = fo.read(-1)
     # Break element into array
@@ -122,10 +122,27 @@ def fetchInput(fpath):
 if __name__ == '__main__':
     # Load note file
     t = fetchInput("input.txt")
-    name = input("Tell me how many steps to shift (%d ~ %d) :"%(t[2][0],t[2][1]))
+    print(t[0])
+    print(t[1])
+    name = int(input("Tell me how many steps to shift (%d ~ %d) :"%(t[2][0],t[2][1])))
+    while name < t[2][0] or name > t[2][1]:
+        name = int(input("Please input right number in (%d ~ %d) :" % (t[2][0], t[2][1])))
     # ToDo: To handle the shifted number list!
-
-
-
-#print(demapTone(mapTone("(#5)")))
-   # print(mapTone("#5"))
+    sArr = []
+    nArr = []
+    for i in range(0,len(t[0])):
+        cur=[t[0][i],t[1][i]]
+        if cur[1]>=0 and cur[1] <=35:
+            nArr.append(cur[1]+name)
+            sArr.append(demapTone(cur[1]+name))
+        else:
+            nArr.append(cur[1])
+            sArr.append(cur[0])
+    print(nArr)
+    outP = ""
+    for i in sArr:
+        outP = outP + i
+    print(outP)
+    fo = open("output.txt", "w",encoding='UTF-8')
+    print(outP, file=fo)
+    fo.close()
